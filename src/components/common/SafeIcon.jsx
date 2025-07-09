@@ -1,16 +1,30 @@
 import React from 'react';
-import * as FiIcons from 'react-icons/fi';
-import { FiAlertTriangle } from 'react-icons/fi';
+import * as LucideIcons from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 const SafeIcon = ({ icon, name, ...props }) => {
   let IconComponent;
+  
   try {
-    IconComponent = icon || (name && FiIcons[`Fi${name}`]);
+    if (icon) {
+      IconComponent = icon;
+    } else if (name && LucideIcons[name]) {
+      IconComponent = LucideIcons[name];
+    }
   } catch (e) {
     IconComponent = null;
   }
 
-  return IconComponent ? React.createElement(IconComponent, props) : <FiAlertTriangle {...props} />;
+  if (IconComponent) {
+    // If IconComponent is a React element, clone it with props
+    if (React.isValidElement(IconComponent)) {
+      return React.cloneElement(IconComponent, props);
+    }
+    // If IconComponent is a component function, render it with props
+    return <IconComponent {...props} />;
+  }
+  
+  return <AlertTriangle {...props} />;
 };
 
 export default SafeIcon;

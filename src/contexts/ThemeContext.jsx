@@ -12,12 +12,12 @@ export const useTheme = () => {
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('alcoajuda-theme');
+    const saved = localStorage.getItem('zeroalcool-theme');
     return saved || 'light';
   });
 
   useEffect(() => {
-    localStorage.setItem('alcoajuda-theme', theme);
+    localStorage.setItem('zeroalcool-theme', theme);
     document.documentElement.className = theme;
   }, [theme]);
 

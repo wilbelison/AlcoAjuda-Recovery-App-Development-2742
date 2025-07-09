@@ -1,26 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SafeIcon from '../components/common/SafeIcon';
 import Button from '../components/common/Button';
-import * as FiIcons from 'react-icons/fi';
-
-const { FiHeart, FiShield, FiTrendingUp, FiUsers, FiArrowRight, FiCheck } = FiIcons;
+import * as LucideIcons from 'lucide-react';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const HomePage = () => {
   const features = [
     {
-      icon: FiTrendingUp,
+      icon: <LucideIcons.TrendingUp className="w-12 h-12 text-primary-600" />,
       title: 'Acompanhe seu Progresso',
       description: 'Visualize sua jornada com gráficos detalhados e marcos importantes.',
     },
     {
-      icon: FiShield,
+      icon: <LucideIcons.Shield className="w-12 h-12 text-primary-600" />,
       title: 'Dados Seguros',
       description: 'Suas informações são protegidas com criptografia de ponta.',
     },
     {
-      icon: FiUsers,
+      icon: <LucideIcons.Users className="w-12 h-12 text-primary-600" />,
       title: 'Suporte Profissional',
       description: 'Conecte-se com profissionais de saúde especializados.',
     },
@@ -37,6 +36,8 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-success-50 dark:from-gray-900 dark:to-gray-800">
+      <Header />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="container mx-auto px-6 py-20">
@@ -47,9 +48,9 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <SafeIcon icon={FiHeart} className="w-16 h-16 text-primary-600 mx-auto mb-6" />
+              <LucideIcons.BeerOff className="w-16 h-16 text-primary-600 mx-auto mb-6" />
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-4">
-                AlcoAjuda
+                Zero Alcool
               </h1>
               <p className="text-xl md:text-2xl text-primary-600 dark:text-primary-400 font-medium mb-8">
                 Transforme Seu Amanhã, Um Dia de Cada Vez
@@ -69,7 +70,7 @@ const HomePage = () => {
               <Link to="/register">
                 <Button size="lg" className="text-lg px-8 py-4">
                   Comece Agora
-                  <SafeIcon icon={FiArrowRight} className="ml-2 w-5 h-5" />
+                  <LucideIcons.ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/login">
@@ -87,7 +88,7 @@ const HomePage = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Por que escolher o AlcoAjuda?
+              Por que escolher o Zero Alcool?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Uma abordagem científica e humana para sua transformação pessoal
@@ -103,10 +104,7 @@ const HomePage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center p-8 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow"
               >
-                <SafeIcon
-                  icon={feature.icon}
-                  className="w-12 h-12 text-primary-600 mx-auto mb-4"
-                />
+                <div className="mx-auto mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   {feature.title}
                 </h3>
@@ -129,7 +127,7 @@ const HomePage = () => {
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center">
-                    <SafeIcon icon={FiCheck} className="w-5 h-5 text-success-600 mr-3" />
+                    <LucideIcons.Check className="w-5 h-5 text-success-600 mr-3" />
                     <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
                   </div>
                 ))}
@@ -144,7 +142,7 @@ const HomePage = () => {
             >
               <h4 className="text-2xl font-bold mb-4">Comece Hoje Mesmo</h4>
               <p className="mb-6 opacity-90">
-                Junte-se a milhares de pessoas que já transformaram suas vidas com o AlcoAjuda.
+                Junte-se a milhares de pessoas que já transformaram suas vidas com o Zero Alcool.
                 Sua jornada de transformação começa com um simples clique.
               </p>
               <Link to="/register">
@@ -157,20 +155,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="text-center">
-            <SafeIcon icon={FiHeart} className="w-8 h-8 text-primary-400 mx-auto mb-4" />
-            <p className="text-gray-400 mb-4">
-              © 2024 AlcoAjuda. Todos os direitos reservados.
-            </p>
-            <p className="text-sm text-gray-500">
-              Desenvolvido com 💙 para apoiar sua jornada de transformação
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

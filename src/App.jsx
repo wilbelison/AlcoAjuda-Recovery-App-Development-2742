@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
 
@@ -19,48 +18,51 @@ import BlogPage from './pages/BlogPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 
+// Layouts
+import Layout from './components/layout/Layout';
+import PublicLayout from './components/layout/PublicLayout';
+
 // Components
 import LoadingSpinner from './components/common/LoadingSpinner';
-import Layout from './components/layout/Layout';
 
 function App() {
   const { user, loading } = useAuth();
   const { theme } = useTheme();
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner message="Carregando..." />;
   }
 
   return (
     <div className={theme}>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        <AnimatePresence mode="wait">
-          <Routes>
-            {/* Public Routes */}
-            {!user ? (
-              <>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/" element={<HomePage />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </>
-            ) : (
-              /* Protected Routes */
-              <Route path="/" element={<Layout />}>
-                <Route index element={<DashboardPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/journal" element={<JournalPage />} />
-                <Route path="/progress" element={<ProgressPage />} />
-                <Route path="/appointments" element={<AppointmentsPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="*" element={<Navigate to="/dashboard" replace />} />
-              </Route>
-            )}
-          </Routes>
-        </AnimatePresence>
+        <Routes>
+          {/* Public Routes */}
+          {!user ? (
+            <>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/about" element={<PublicLayout />} />
+              <Route path="/contact" element={<PublicLayout />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </>
+          ) : (
+            /* Protected Routes */
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/journal" element={<JournalPage />} />
+              <Route path="/progress" element={<ProgressPage />} />
+              <Route path="/appointments" element={<AppointmentsPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Route>
+          )}
+        </Routes>
       </div>
     </div>
   );

@@ -1,33 +1,19 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SafeIcon from '../common/SafeIcon';
-import * as FiIcons from 'react-icons/fi';
-
-const {
-  FiHome,
-  FiBarChart3,
-  FiBook,
-  FiCalendar,
-  FiFileText,
-  FiUser,
-  FiSettings,
-  FiMenu,
-  FiX,
-  FiHeart,
-} = FiIcons;
+import * as LucideIcons from 'lucide-react';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
-    { path: '/dashboard', icon: FiHome, label: 'Dashboard' },
-    { path: '/progress', icon: FiBarChart3, label: 'Progresso' },
-    { path: '/journal', icon: FiBook, label: 'Diário' },
-    { path: '/appointments', icon: FiCalendar, label: 'Consultas' },
-    { path: '/blog', icon: FiFileText, label: 'Blog' },
-    { path: '/profile', icon: FiUser, label: 'Perfil' },
-    { path: '/settings', icon: FiSettings, label: 'Configurações' },
+    { path: '/dashboard', icon: <LucideIcons.Home className="w-5 h-5" />, label: 'Dashboard' },
+    { path: '/progress', icon: <LucideIcons.BarChart3 className="w-5 h-5" />, label: 'Progresso' },
+    { path: '/journal', icon: <LucideIcons.Book className="w-5 h-5" />, label: 'Diário' },
+    { path: '/appointments', icon: <LucideIcons.Calendar className="w-5 h-5" />, label: 'Consultas' },
+    { path: '/blog', icon: <LucideIcons.FileText className="w-5 h-5" />, label: 'Blog' },
+    { path: '/profile', icon: <LucideIcons.User className="w-5 h-5" />, label: 'Perfil' },
+    { path: '/settings', icon: <LucideIcons.Settings className="w-5 h-5" />, label: 'Configurações' },
   ];
 
   return (
@@ -46,10 +32,10 @@ const Sidebar = () => {
               animate={{ opacity: 1 }}
               className="flex items-center space-x-2"
             >
-              <SafeIcon icon={FiHeart} className="w-8 h-8 text-primary-600" />
+              <LucideIcons.BeerOff className="w-8 h-8 text-primary-600" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  AlcoAjuda
+                  Zero Alcool
                 </h1>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   Transforme Seu Amanhã
@@ -61,10 +47,11 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
-            <SafeIcon
-              icon={isCollapsed ? FiMenu : FiX}
-              className="w-5 h-5 text-gray-600 dark:text-gray-400"
-            />
+            {isCollapsed ? (
+              <LucideIcons.Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            ) : (
+              <LucideIcons.X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            )}
           </button>
         </div>
       </div>
@@ -84,10 +71,7 @@ const Sidebar = () => {
                   }`
                 }
               >
-                <SafeIcon
-                  icon={item.icon}
-                  className="w-5 h-5 flex-shrink-0"
-                />
+                <div className="w-5 h-5 flex-shrink-0">{item.icon}</div>
                 {!isCollapsed && (
                   <motion.span
                     initial={{ opacity: 0, x: -10 }}
